@@ -101,6 +101,10 @@ class CalligraphyLayoutInflater extends LayoutInflater implements CalligraphyAct
         }
     }
 
+    private Factory2 getPrivateFactory() {
+        return ReflectionUtils.getField(this, "mPrivateFactory", LayoutInflater.Factory2.class);
+    }
+
     private void setPrivateFactoryInternal() {
         // Already tried to set the factory.
         if (mSetPrivateFactory) return;
@@ -112,14 +116,16 @@ class CalligraphyLayoutInflater extends LayoutInflater implements CalligraphyAct
             return;
         }
 
-        final Method setPrivateFactoryMethod = ReflectionUtils
+        Method setPrivateFactoryMethod = ReflectionUtils
                 .getMethod(LayoutInflater.class, "setPrivateFactory");
 
+        Factory2 privateFactory = getPrivateFactory();
         if (setPrivateFactoryMethod != null) {
             ReflectionUtils.invokeMethod(this,
                     setPrivateFactoryMethod,
-                    new PrivateWrapperFactory2((Factory2) getContext(), this, mCalligraphyFactory));
+                    new PrivateWrapperFactory2(privateFactory != null ? privateFactory : (Factory2) getContext(), this, mCalligraphyFactory));
         }
+
         mSetPrivateFactory = true;
     }
 
