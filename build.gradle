@@ -5,6 +5,7 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.1.2'
+    classpath 'com.novoda:bintray-release:0.3.4'
   }
 }
 
@@ -24,3 +25,5 @@ task wrapper(type: Wrapper) {
   gradleVersion = '2.12'
   distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
+
+apply from: project.file('metadata.gradle')

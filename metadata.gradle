@@ -1,0 +1,13 @@
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+ext {
+    metadata = [
+            groupId   : 'uk.co.chrisjenx',
+            name      : "Calligraphy",
+            website   : 'https://github.com/chrisjenx/Calligraphy',
+            version   : "2.2.1-DEV",
+
+            dryRun    : false,
+    ]
+}
